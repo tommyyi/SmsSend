@@ -45,11 +45,16 @@ public class TestBase
         activity.registerReceiver(mDeliveredBroadcastReceiver, new IntentFilter(TestBase.SMS_DELIVERED));
     }
 
-    protected String getChargeInfo() throws IOException
+    protected String getChargeInfo(String ip) throws IOException
     {
-        String url = mUrlImp.getUrl();
+        String url = mUrlImp.getUrl(ip);
         Response<String> response = ServerAgent.getmAPI().getInfo(url).execute();
         return response.body();
+    }
+
+    public String getUrl(String ip)
+    {
+        return mUrlImp.getUrl(ip);
     }
 
     public void UpdateProgress(String tag, String info)

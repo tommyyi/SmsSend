@@ -5,5 +5,5 @@ package com.example.administrator.smssend.server;
  */
 public interface URLImp
 {
-    String getUrl();
+    String getUrl(String ip);
 }

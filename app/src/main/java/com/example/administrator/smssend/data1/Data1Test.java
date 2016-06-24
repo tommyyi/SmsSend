@@ -80,6 +80,8 @@ public class Data1Test extends TestBase implements TestImp
     @Override
     public void byAuto()
     {
+        UpdateProgress("获取支付信息使用的URL：",getUrl(mActivity.mActivityMainBinding.ip.getText().toString()));
+
         Observable.create(new Observable.OnSubscribe<String>()
         {
             @Override
@@ -87,7 +89,7 @@ public class Data1Test extends TestBase implements TestImp
             {
                 try
                 {
-                    subscriber.onNext(getChargeInfo());
+                    subscriber.onNext(getChargeInfo(mActivity.mActivityMainBinding.ip.getText().toString()));
                 }
                 catch (IOException e)
                 {

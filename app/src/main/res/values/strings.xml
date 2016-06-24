@@ -14,4 +14,6 @@
     <string name="portnumberHint">请输入端口号</string>
     <string name="byManual">是否手工输入参数</string>
     <string name="defaultdelay">2</string>
+    <string name="inputip">ip(可按需要修改):</string>
+    <string name="defaultip">117.136.5.16</string>
 </resources>
