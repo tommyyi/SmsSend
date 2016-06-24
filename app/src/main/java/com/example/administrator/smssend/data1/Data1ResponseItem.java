@@ -4,7 +4,7 @@ package com.example.administrator.smssend.data1;
  * Created by Administrator on 2016/6/23.
  */
 
-public class Data1ResponseItem
+class Data1ResponseItem
 {
     /**
      * resultCode : 0000

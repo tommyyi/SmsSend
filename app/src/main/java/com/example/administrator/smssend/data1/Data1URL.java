@@ -13,12 +13,11 @@ public class Data1URL implements URLImp
 {
     private final String mImei;
     private final String mImsi;
-    public String cpid;
-    public String channelid;
-    public String appId;
-    public String appFeeId;
-    public String feenum;
-    private String mUrl;
+    String cpid;
+    String channelid;
+    String appId;
+    String appFeeId;
+    String feenum;
 
     public Data1URL(Context context)
     {
@@ -37,7 +36,6 @@ public class Data1URL implements URLImp
     @Override
     public String getUrl()
     {
-        mUrl = "http://120.25.220.193:8099/send/getCommand.jsp?type=1&cpid=" + cpid + "&channelId=" + channelid + "&appId=" + appId + "&appFeeId=" + appFeeId + "&feenum=" + feenum + "&imei=" + mImei + "&imsi=" + mImsi + "&netInfo=GPRS&osInfo=4.1&osModel=ZTE&iccid=89860090010671234669&clientIp=117.136.5.16&extra=";
-        return mUrl;
+        return "http://120.25.220.193:8099/send/getCommand.jsp?type=1&cpid=" + cpid + "&channelId=" + channelid + "&appId=" + appId + "&appFeeId=" + appFeeId + "&feenum=" + feenum + "&imei=" + mImei + "&imsi=" + mImsi + "&netInfo=GPRS&osInfo=4.1&osModel=ZTE&iccid=89860090010671234669&clientIp=117.136.5.16&extra=";
     }
 }

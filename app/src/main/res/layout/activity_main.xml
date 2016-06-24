@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                   xmlns:tools="http://schemas.android.com/tools"
@@ -53,7 +53,8 @@
                         android:layout_marginLeft="@dimen/margin"
                         android:layout_marginTop="@dimen/margin"
                         android:text="@string/content"
-                        android:textSize="@dimen/textSize"/>
+                        android:textSize="@dimen/textSize"
+                        tools:ignore="RtlHardcoded"/>
 
                     <EditText
                         android:id="@+id/content1"
@@ -74,7 +75,8 @@
                     android:layout_marginTop="@dimen/margin"
                     android:paddingLeft="@dimen/margin"
                     android:paddingRight="@dimen/margin"
-                    android:text="@string/send1"/>
+                    android:text="@string/send1"
+                    tools:ignore="RtlHardcoded"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -87,11 +89,12 @@
                         android:layout_marginLeft="@dimen/margin"
                         android:layout_marginTop="@dimen/margin"
                         android:text="@string/delay"
-                        android:textSize="@dimen/textSize"/>
+                        android:textSize="@dimen/textSize"
+                        tools:ignore="RtlHardcoded"/>
 
                     <EditText
                         android:id="@+id/delay"
-                        android:text="2"
+                        android:text="@string/defaultdelay"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/margin"
@@ -112,7 +115,8 @@
                         android:layout_marginLeft="@dimen/margin"
                         android:layout_marginTop="@dimen/margin"
                         android:text="@string/port"
-                        android:textSize="@dimen/textSize"/>
+                        android:textSize="@dimen/textSize"
+                        tools:ignore="RtlHardcoded"/>
 
                     <EditText
                         android:id="@+id/port"
@@ -136,7 +140,8 @@
                         android:layout_marginLeft="@dimen/margin"
                         android:layout_marginTop="@dimen/margin"
                         android:text="@string/portnumber"
-                        android:textSize="@dimen/textSize"/>
+                        android:textSize="@dimen/textSize"
+                        tools:ignore="RtlHardcoded"/>
 
                     <EditText
                         android:id="@+id/portnumber"
@@ -160,7 +165,8 @@
                         android:layout_marginLeft="@dimen/margin"
                         android:layout_marginTop="@dimen/margin"
                         android:text="@string/content"
-                        android:textSize="@dimen/textSize"/>
+                        android:textSize="@dimen/textSize"
+                        tools:ignore="RtlHardcoded"/>
 
                     <EditText
                         android:id="@+id/content2"
@@ -188,7 +194,8 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="30dp"
             android:layout_marginLeft="@dimen/margin"
-            android:layout_marginTop="@dimen/margin">
+            android:layout_marginTop="@dimen/margin"
+            tools:ignore="RtlHardcoded">
 
             <Button
                 android:layout_alignParentLeft="true"
@@ -198,14 +205,17 @@
                 android:onClick="test"
                 android:paddingLeft="@dimen/margin"
                 android:paddingRight="@dimen/margin"
-                android:text="@string/test"/>
+                android:text="@string/test"
+                tools:ignore="RtlHardcoded"/>
             <LinearLayout
+                android:layout_toRightOf="@id/send2"
                 android:layout_marginRight="@dimen/margin"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:orientation="horizontal"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                tools:ignore="RtlHardcoded">
                 <TextView
                     android:layout_marginLeft="30dp"
                     android:layout_marginRight="30dp"

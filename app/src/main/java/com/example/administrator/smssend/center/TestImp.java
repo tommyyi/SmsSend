@@ -1,13 +1,5 @@
 package com.example.administrator.smssend.center;
 
-import android.content.Context;
-import android.view.View;
-import android.widget.TextView;
-
-import com.example.administrator.smssend.server.URLImp;
-
-import java.io.IOException;
-
 /**
  * Created by Administrator on 2016/6/24.
  */

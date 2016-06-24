@@ -19,7 +19,7 @@ public class ServerAgent
         return mAPI;
     }
 
-    private static API mAPI;
+    private static final API mAPI;
     static
     {
         Retrofit retrofit=new Retrofit.Builder().baseUrl("http://www.baidu.com").addConverterFactory(new Converter.Factory()

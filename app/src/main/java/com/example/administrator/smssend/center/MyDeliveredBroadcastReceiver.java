@@ -8,7 +8,7 @@ import android.content.Intent;
  */
 public class MyDeliveredBroadcastReceiver extends android.content.BroadcastReceiver
 {
-    private TestBase mTestBase;
+    private final TestBase mTestBase;
 
     public MyDeliveredBroadcastReceiver(TestBase testBase)
     {

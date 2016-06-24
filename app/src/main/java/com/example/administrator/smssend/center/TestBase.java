@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.support.annotation.NonNull;
 import android.telephony.SmsManager;
-import android.util.Base64;
 import android.widget.TextView;
 
 import com.example.administrator.smssend.server.ServerAgent;
@@ -22,18 +21,18 @@ import retrofit2.Response;
 public class TestBase
 {
     public static final String NUMBER = "number";
-    private Activity mActivity;
+    private final Activity mActivity;
     private static final String SMS_SENT = "SMS_SENT";
     private static final String SMS_DELIVERED = "SMS_DELIVERED";
-    private SmsManager mSmsManager;
+    private final SmsManager mSmsManager;
     private PendingIntent mPiSend;
     private PendingIntent mPiDelivered;
-    private MySendBroadcastReceiver mSendBroadcastReceiver;
-    private MyDeliveredBroadcastReceiver mDeliveredBroadcastReceiver;
-    private TextView mTextView;
-    private URLImp mUrlImp;
+    private final MySendBroadcastReceiver mSendBroadcastReceiver;
+    private final MyDeliveredBroadcastReceiver mDeliveredBroadcastReceiver;
+    private final TextView mTextView;
+    private final URLImp mUrlImp;
 
-    public TestBase(Activity activity, URLImp urlImp, TextView textView)
+    protected TestBase(Activity activity, URLImp urlImp, TextView textView)
     {
         mActivity=activity;
         mTextView=textView;
@@ -46,7 +45,7 @@ public class TestBase
         activity.registerReceiver(mDeliveredBroadcastReceiver, new IntentFilter(TestBase.SMS_DELIVERED));
     }
 
-    public String getInfo() throws IOException
+    protected String getChargeInfo() throws IOException
     {
         String url = mUrlImp.getUrl();
         Response<String> response = ServerAgent.getmAPI().getInfo(url).execute();
@@ -56,9 +55,7 @@ public class TestBase
     public void UpdateProgress(String tag, String info)
     {
         String processInfo = mTextView.getText().toString();
-        StringBuilder stringBuilder = new StringBuilder(processInfo);
-        stringBuilder.append(tag).append("\r\n").append(info).append("\r\n\r\n");
-        mTextView.setText(stringBuilder.toString());
+        mTextView.setText(processInfo + tag + "\r\n" + info + "\r\n\r\n");
     }
 
     @NonNull
@@ -86,7 +83,7 @@ public class TestBase
         mSmsManager.sendTextMessage(number, null, message, mPiSend, mPiDelivered);
     }
 
-    public void send2(String port, short portNumber, byte[] smsData)
+    protected void send2(String port, short portNumber, byte[] smsData)
     {
         Intent intent = getSmsSendIntent(port);
         mPiSend = PendingIntent.getBroadcast(mActivity, 0, intent, 0);

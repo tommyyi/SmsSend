@@ -24,7 +24,7 @@ import rx.schedulers.Schedulers;
  */
 public class Data1Test extends TestBase implements TestImp
 {
-    private Data1Activity mActivity;
+    private final Data1Activity mActivity;
 
     public Data1Test(Data1Activity activity, URLImp urlImp, TextView textView)
     {
@@ -87,7 +87,7 @@ public class Data1Test extends TestBase implements TestImp
             {
                 try
                 {
-                    subscriber.onNext(getInfo());
+                    subscriber.onNext(getChargeInfo());
                 }
                 catch (IOException e)
                 {

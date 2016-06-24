@@ -13,4 +13,5 @@
     <string name="portHint">请输入端口</string>
     <string name="portnumberHint">请输入端口号</string>
     <string name="byManual">是否手工输入参数</string>
+    <string name="defaultdelay">2</string>
 </resources>

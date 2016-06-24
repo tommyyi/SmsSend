@@ -10,6 +10,6 @@ import retrofit2.http.Url;
 
 public interface API
 {
-    @GET("")
+    @GET()
     Call<String> getInfo(@Url String url);
 }
