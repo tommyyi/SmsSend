@@ -72,7 +72,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/margin"
                     android:layout_marginTop="@dimen/margin"
-                    android:onClick="send1"
                     android:paddingLeft="@dimen/margin"
                     android:paddingRight="@dimen/margin"
                     android:text="@string/send1"/>
