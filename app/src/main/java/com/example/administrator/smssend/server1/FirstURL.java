@@ -1,4 +1,4 @@
-package com.example.administrator.smssend.server.data;
+package com.example.administrator.smssend.server1;
 
 import android.content.Context;
 import android.telephony.TelephonyManager;
@@ -9,7 +9,7 @@ import com.example.administrator.smssend.server.URLImp;
  * Created by Administrator on 2016/6/23.
  */
 
-public class URL implements URLImp
+public class FirstURL implements URLImp
 {
     private final String mImei;
     private final String mImsi;
@@ -19,7 +19,7 @@ public class URL implements URLImp
     private final String appId = "2138";
     private final String appFeeId = "3194";
     private final String feenum = "200";
-    public URL(Context context)
+    public FirstURL(Context context)
     {
         TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
 

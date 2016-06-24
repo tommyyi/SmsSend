@@ -1,28 +1,25 @@
 package com.example.administrator.smssend;
 
-import android.app.PendingIntent;
+import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.databinding.DataBindingUtil;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.telephony.SmsManager;
+import android.support.v7.app.AppCompatActivity;
 import android.telephony.TelephonyManager;
-import android.util.Base64;
 import android.view.View;
 import android.widget.CompoundButton;
+import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONObject;
+import com.example.administrator.smssend.center.TestBase;
+import com.example.administrator.smssend.center.TestImp;
 import com.example.administrator.smssend.databinding.ActivityMainBinding;
-import com.example.administrator.smssend.server.data.ResponseItem;
-import com.example.administrator.smssend.server.ServerAgent;
-import com.example.administrator.smssend.server.data.URL;
 import com.example.administrator.smssend.server.URLImp;
+import com.example.administrator.smssend.server1.FirstURL;
+import com.example.administrator.smssend.server1.ResponseItem;
 
 import java.io.IOException;
 
-import retrofit2.Response;
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -31,14 +28,7 @@ import rx.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity
 {
-    private static final String SMS_SENT = "SMS_SENT";
-    private static final String SMS_DELIVERED = "SMS_DELIVERED";
     private ActivityMainBinding mActivityMainBinding;
-    private SmsManager mSmsManager;
-    private PendingIntent mPiSend;
-    private PendingIntent mPiDelivered;
-    private MySendBroadcastReceiver mSendBroadcastReceiver;
-    private MyDeliveredBroadcastReceiver mDeliveredBroadcastReceiver;
     private TestImp mTestImp;
 
     @Override
@@ -52,13 +42,7 @@ public class MainActivity extends AppCompatActivity
 
     private void init()
     {
-        mSmsManager = SmsManager.getDefault();
-        mSendBroadcastReceiver = new MySendBroadcastReceiver();
-        registerReceiver(mSendBroadcastReceiver, new IntentFilter(SMS_SENT));
-        mDeliveredBroadcastReceiver = new MyDeliveredBroadcastReceiver();
-        registerReceiver(mDeliveredBroadcastReceiver, new IntentFilter(SMS_DELIVERED));
-
-        mTestImp = new MyTestImp();
+        mTestImp = new MyTest(this, new FirstURL(this), mActivityMainBinding.processInfo);
         mTestImp.init();
     }
 
@@ -80,34 +64,16 @@ public class MainActivity extends AppCompatActivity
     protected void onDestroy()
     {
         super.onDestroy();
-        unregisterReceiver(mSendBroadcastReceiver);
-        unregisterReceiver(mDeliveredBroadcastReceiver);
+        ((TestBase) mTestImp).unregister();
     }
 
-    private class MySendBroadcastReceiver extends android.content.BroadcastReceiver
+    private class MyTest extends TestBase implements TestImp
     {
-        @Override
-        public void onReceive(Context context, Intent intent)
+        MyTest(Activity activity, URLImp urlImp, TextView textView)
         {
-            String tag = "已发送信息至:";
-            String number = intent.getStringExtra("number");
-            mTestImp.UpdateProgress(tag, number);
+            super(activity, urlImp, textView);
         }
-    }
 
-    private class MyDeliveredBroadcastReceiver extends android.content.BroadcastReceiver
-    {
-        @Override
-        public void onReceive(Context context, Intent intent)
-        {
-            String tag = "对方已收到:";
-            String number = intent.getStringExtra("number");
-            mTestImp.UpdateProgress(tag, number);
-        }
-    }
-
-    private class MyTestImp implements TestImp
-    {
         @Override
         public void init()
         {
@@ -127,9 +93,9 @@ public class MainActivity extends AppCompatActivity
                 }
             });
             setState(false);
-            TelephonyManager telephonyManager=(TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
-            String imei=telephonyManager.getDeviceId();
-            mActivityMainBinding.processInfo.setText("imei:"+imei+"\r\n");
+            TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+            String imei = telephonyManager.getDeviceId();
+            MyTest.super.UpdateProgress("imei:",imei);
         }
 
         @Override
@@ -163,7 +129,7 @@ public class MainActivity extends AppCompatActivity
                 {
                     try
                     {
-                        subscriber.onNext(getInfo(MainActivity.this.getApplicationContext()));
+                        subscriber.onNext(getInfo());
                     }
                     catch (IOException e)
                     {
@@ -197,31 +163,17 @@ public class MainActivity extends AppCompatActivity
         }
 
         @Override
-        public String getInfo(Context context) throws IOException
-        {
-            URLImp urlImp = new URL(context);
-            String url = urlImp.getUrl();
-            Response<String> response = ServerAgent.getmAPI().getInfo(url).execute();
-            return response.body();
-        }
-
-        @Override
         public void send1()
         {
             String number = mActivityMainBinding.number1.getText().toString();
             String message = mActivityMainBinding.content1.getText().toString();
             if (number.equals("") || message.equals(""))
             {
+                MyTest.super.UpdateProgress("没有短信号码或内容，无法发送第1条短信","");
                 return;
             }
 
-            Intent intent = new Intent(SMS_SENT);
-            intent.putExtra("number", number);
-            mPiSend = PendingIntent.getBroadcast(MainActivity.this, 0, intent, 0);
-            Intent intent1 = new Intent(SMS_DELIVERED);
-            intent1.putExtra("number", number);
-            mPiDelivered = PendingIntent.getBroadcast(MainActivity.this, 0, intent1, 0);
-            mSmsManager.sendTextMessage(number, null, message, mPiSend, mPiDelivered);
+            send1(number, message);
         }
 
         @Override
@@ -252,33 +204,27 @@ public class MainActivity extends AppCompatActivity
                 @Override
                 public void call(String s)
                 {
-                    byte[] smsData = Base64.decode(mActivityMainBinding.content2.getText().toString(), Base64.DEFAULT);
+                    String content2 = mActivityMainBinding.content2.getText().toString();
                     String port = mActivityMainBinding.port.getText().toString();
-                    short portNumber = Short.valueOf(mActivityMainBinding.portnumber.getText().toString());
-
-                    if (port.equals("") || mActivityMainBinding.content2.getText().toString().equals(""))
+                    String portNumberStr = mActivityMainBinding.portnumber.getText().toString();
+                    if (port.equals("") || content2.equals(""))
                     {
+                        MyTest.super.UpdateProgress("没有短信号码或内容，无法发送第2条短信","");
                         return;
                     }
+                    short portNumber;
+                    if (portNumberStr.equals(""))
+                    {
+                        portNumber = 0;
+                    }
+                    else
+                    {
+                        portNumber = Short.valueOf(portNumberStr);
+                    }
 
-                    Intent intent = new Intent(SMS_SENT);
-                    intent.putExtra("number", port);
-                    mPiSend = PendingIntent.getBroadcast(MainActivity.this, 0, intent, 0);
-                    Intent intent1 = new Intent(SMS_DELIVERED);
-                    intent1.putExtra("number", port);
-                    mPiDelivered = PendingIntent.getBroadcast(MainActivity.this, 0, intent1, 0);
-                    mSmsManager.sendDataMessage(port, null, portNumber, smsData, mPiSend, mPiDelivered);
+                    MyTest.this.send2(port, portNumber, content2);
                 }
             });
-        }
-
-        @Override
-        public void UpdateProgress(String tag, String info)
-        {
-            String processInfo = mActivityMainBinding.processInfo.getText().toString();
-            StringBuilder stringBuilder = new StringBuilder(processInfo);
-            stringBuilder.append(tag).append("\r\n").append(info).append("\r\n\r\n");
-            mActivityMainBinding.processInfo.setText(stringBuilder.toString());
         }
     }
 }
