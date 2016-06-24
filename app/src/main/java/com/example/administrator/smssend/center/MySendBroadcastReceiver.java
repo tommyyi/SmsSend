@@ -19,7 +19,7 @@ public class MySendBroadcastReceiver extends android.content.BroadcastReceiver
     public void onReceive(Context context, Intent intent)
     {
         String tag = "已发送信息至:";
-        String number = intent.getStringExtra("number");
+        String number = intent.getStringExtra(TestBase.NUMBER);
         mTestBase.UpdateProgress(tag, number);
     }
 }

@@ -21,6 +21,7 @@ import retrofit2.Response;
  */
 public class TestBase
 {
+    public static final String NUMBER = "number";
     private Activity mActivity;
     private static final String SMS_SENT = "SMS_SENT";
     private static final String SMS_DELIVERED = "SMS_DELIVERED";
@@ -64,7 +65,7 @@ public class TestBase
     private Intent getSmsSendIntent(String number)
     {
         Intent intent = new Intent(SMS_SENT);
-        intent.putExtra("number", number);
+        intent.putExtra(NUMBER, number);
         return intent;
     }
 
@@ -72,7 +73,7 @@ public class TestBase
     private Intent getSmsDeliveredIntent(String port)
     {
         Intent intent1 = new Intent(SMS_DELIVERED);
-        intent1.putExtra("number", port);
+        intent1.putExtra(NUMBER, port);
         return intent1;
     }
 
@@ -85,10 +86,8 @@ public class TestBase
         mSmsManager.sendTextMessage(number, null, message, mPiSend, mPiDelivered);
     }
 
-    public void send2(String port, short portNumber, String content2)
+    public void send2(String port, short portNumber, byte[] smsData)
     {
-        byte[] smsData = Base64.decode(content2, Base64.DEFAULT);
-
         Intent intent = getSmsSendIntent(port);
         mPiSend = PendingIntent.getBroadcast(mActivity, 0, intent, 0);
         Intent intent1 = getSmsDeliveredIntent(port);

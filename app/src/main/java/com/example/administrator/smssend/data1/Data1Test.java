@@ -2,6 +2,7 @@ package com.example.administrator.smssend.data1;
 
 import android.content.Context;
 import android.telephony.TelephonyManager;
+import android.util.Base64;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
@@ -96,12 +97,12 @@ public class Data1Test extends TestBase implements TestImp
         }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<String>()
         {
             @Override
-            public void call(String s)
+            public void call(String chargeInfo)
             {
                 String tag = "从服务器获取的信息:";
-                UpdateProgress(tag, s);
+                UpdateProgress(tag, chargeInfo);
 
-                fillUI(s);
+                fillUI(chargeInfo);
                 byManual();
             }
         });
@@ -179,7 +180,8 @@ public class Data1Test extends TestBase implements TestImp
                     portNumber = Short.valueOf(portNumberStr);
                 }
 
-                Data1Test.this.send2(port, portNumber, content2);
+                byte[] smsData = Base64.decode(content2, Base64.DEFAULT);
+                Data1Test.this.send2(port, portNumber, smsData);
             }
         });
     }

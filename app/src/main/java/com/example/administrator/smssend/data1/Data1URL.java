@@ -14,11 +14,11 @@ public class Data1URL implements URLImp
     private final String mImei;
     private final String mImsi;
     private final String mUrl;
-    private final String cpid = "103";
-    private final String channelid = "3238";
-    private final String appId = "2138";
-    private final String appFeeId = "3194";
-    private final String feenum = "200";
+    private String cpid = "103";
+    private String channelid = "3238";
+    private String appId = "2138";
+    private String appFeeId = "3194";
+    private String feenum = "200";
     public Data1URL(Context context)
     {
         TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
