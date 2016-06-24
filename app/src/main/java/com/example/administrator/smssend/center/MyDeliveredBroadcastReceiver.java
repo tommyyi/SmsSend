@@ -2,7 +2,6 @@ package com.example.administrator.smssend.center;
 
 import android.content.Context;
 import android.content.Intent;
-import android.widget.TextView;
 
 /**
  * Created by Administrator on 2016/6/24.

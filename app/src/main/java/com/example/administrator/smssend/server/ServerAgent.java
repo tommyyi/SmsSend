@@ -1,7 +1,5 @@
 package com.example.administrator.smssend.server;
 
-import com.example.administrator.smssend.MainActivity;
-
 import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;

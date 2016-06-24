@@ -1,10 +1,10 @@
-package com.example.administrator.smssend.server1;
+package com.example.administrator.smssend.data1;
 
 /**
  * Created by Administrator on 2016/6/23.
  */
 
-public class ResponseItem
+public class Data1ResponseItem
 {
     /**
      * resultCode : 0000
