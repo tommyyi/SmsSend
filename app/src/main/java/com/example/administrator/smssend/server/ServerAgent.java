@@ -14,7 +14,7 @@ import retrofit2.Retrofit;
 
 public class ServerAgent
 {
-    public static API getmAPI()
+    public static API getAPI()
     {
         return mAPI;
     }

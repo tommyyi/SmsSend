@@ -53,7 +53,7 @@ public abstract class TestBase
     protected String getChargeInfo(String ip) throws IOException
     {
         String url = mUrlImp.getUrl(ip);
-        Response<String> response = ServerAgent.getmAPI().getInfo(url).execute();
+        Response<String> response = ServerAgent.getAPI().getInfo(url).execute();
         return response.body();
     }
 
@@ -65,7 +65,7 @@ public abstract class TestBase
     public void UpdateProgress(String tag, String info)
     {
         String processInfo = mTextView.getText().toString();
-        mTextView.setText(processInfo + tag + "\r\n" + info + "\r\n\r\n");
+        mTextView.setText(String.format("%s%s\r\n%s\r\n\r\n", processInfo, tag, info));
     }
 
     @NonNull
