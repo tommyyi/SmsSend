@@ -4,7 +4,7 @@ package com.example.guangzhou_genyuan;
  * Created by Administrator on 2016/6/23.
  */
 
-class ServiceResponse
+public class ServiceResponse
 {
     /**
      * resultCode : 0000

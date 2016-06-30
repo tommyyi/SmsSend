@@ -6,13 +6,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.example.administrator.smssend.center.TestBase;
-import com.example.administrator.smssend.center.TestImp;
+import com.example.administrator.smssend.center.TestManagerImp;
 import com.example.guangzhou_genyuan.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity
 {
     public ActivityMainBinding mActivityMainBinding;
-    private TestImp mTestImp;
+    private TestManagerImp mTestImp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
