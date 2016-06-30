@@ -1,10 +1,10 @@
-package com.example.administrator.smssend.data1;
+package com.example.guangzhou_genyuan;
 
 /**
  * Created by Administrator on 2016/6/23.
  */
 
-class Data1ResponseItem
+class ServiceResponse
 {
     /**
      * resultCode : 0000

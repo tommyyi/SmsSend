@@ -18,7 +18,7 @@ import retrofit2.Response;
 /**
  * Created by Administrator on 2016/6/24.
  */
-public class TestBase
+public abstract class TestBase
 {
     public static final String NUMBER = "number";
     private final Activity mActivity;
@@ -41,8 +41,13 @@ public class TestBase
 
         mSendBroadcastReceiver = new MySendBroadcastReceiver(this);
         mDeliveredBroadcastReceiver = new MyDeliveredBroadcastReceiver(this);
-        activity.registerReceiver(mSendBroadcastReceiver, new IntentFilter(TestBase.SMS_SENT));
-        activity.registerReceiver(mDeliveredBroadcastReceiver, new IntentFilter(TestBase.SMS_DELIVERED));
+        register();
+    }
+
+    public void register()
+    {
+        mActivity.registerReceiver(mSendBroadcastReceiver, new IntentFilter(TestBase.SMS_SENT));
+        mActivity.registerReceiver(mDeliveredBroadcastReceiver, new IntentFilter(TestBase.SMS_DELIVERED));
     }
 
     protected String getChargeInfo(String ip) throws IOException
@@ -79,7 +84,7 @@ public class TestBase
         return intent1;
     }
 
-    protected void send1(String number, String message)
+    protected void sendTextMessage(String number, String message)
     {
         Intent intent = getSmsSendIntent(number);
         mPiSend = PendingIntent.getBroadcast(mActivity, 0, intent, 0);
@@ -88,7 +93,7 @@ public class TestBase
         mSmsManager.sendTextMessage(number, null, message, mPiSend, mPiDelivered);
     }
 
-    protected void send2(String port, short portNumber, byte[] smsData)
+    protected void sendDataMessage(String port, short portNumber, byte[] smsData)
     {
         Intent intent = getSmsSendIntent(port);
         mPiSend = PendingIntent.getBroadcast(mActivity, 0, intent, 0);

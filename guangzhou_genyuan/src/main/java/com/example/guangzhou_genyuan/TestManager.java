@@ -1,4 +1,4 @@
-package com.example.administrator.smssend.data1;
+package com.example.guangzhou_genyuan;
 
 import android.content.Context;
 import android.telephony.TelephonyManager;
@@ -22,11 +22,11 @@ import rx.schedulers.Schedulers;
 /**
  * Created by Administrator on 2016/6/24.
  */
-public class Data1Test extends TestBase implements TestImp
+public class TestManager extends TestBase implements TestImp
 {
-    private final Data1Activity mActivity;
+    private final MainActivity mActivity;
 
-    public Data1Test(Data1Activity activity, URLImp urlImp, TextView textView)
+    public TestManager(MainActivity activity, URLImp urlImp, TextView textView)
     {
         super(activity, urlImp, textView);
         mActivity = activity;
@@ -53,7 +53,7 @@ public class Data1Test extends TestBase implements TestImp
         mActivity.setState(false);
         TelephonyManager telephonyManager = (TelephonyManager) mActivity.getSystemService(Context.TELEPHONY_SERVICE);
         String imei = telephonyManager.getDeviceId();
-        Data1Test.super.UpdateProgress("imei:", imei);
+        TestManager.super.UpdateProgress("imei:", imei);
     }
 
     @Override
@@ -113,13 +113,13 @@ public class Data1Test extends TestBase implements TestImp
     @Override
     public void fillUI(String s)
     {
-        Data1ResponseItem data1ResponseItem = JSONObject.parseObject(s, Data1ResponseItem.class);
-        mActivity.mActivityMainBinding.number1.setText(data1ResponseItem.getInit_sms_number());
-        mActivity.mActivityMainBinding.content1.setText(data1ResponseItem.getInit_sms());
+        ServiceResponse serviceResponse = JSONObject.parseObject(s, ServiceResponse.class);
+        mActivity.mActivityMainBinding.number1.setText(serviceResponse.getInit_sms_number());
+        mActivity.mActivityMainBinding.content1.setText(serviceResponse.getInit_sms());
 
-        mActivity.mActivityMainBinding.port.setText(data1ResponseItem.getPort());
-        mActivity.mActivityMainBinding.portnumber.setText(data1ResponseItem.getPortnumber());
-        mActivity.mActivityMainBinding.content2.setText(data1ResponseItem.getCmd());
+        mActivity.mActivityMainBinding.port.setText(serviceResponse.getPort());
+        mActivity.mActivityMainBinding.portnumber.setText(serviceResponse.getPortnumber());
+        mActivity.mActivityMainBinding.content2.setText(serviceResponse.getCmd());
     }
 
     @Override
@@ -129,11 +129,11 @@ public class Data1Test extends TestBase implements TestImp
         String message = mActivity.mActivityMainBinding.content1.getText().toString();
         if (number.equals("") || message.equals(""))
         {
-            Data1Test.super.UpdateProgress("没有短信号码或内容，无法发送第1条短信", "");
+            TestManager.super.UpdateProgress("没有短信号码或内容，无法发送第1条短信", "");
             return;
         }
 
-        send1(number, message);
+        sendTextMessage(number, message);
     }
 
     @Override
@@ -169,7 +169,7 @@ public class Data1Test extends TestBase implements TestImp
                 String portNumberStr = mActivity.mActivityMainBinding.portnumber.getText().toString();
                 if (port.equals("") || content2.equals(""))
                 {
-                    Data1Test.super.UpdateProgress("没有短信号码或内容，无法发送第2条短信", "");
+                    TestManager.super.UpdateProgress("没有短信号码或内容，无法发送第2条短信", "");
                     return;
                 }
                 short portNumber;
@@ -183,7 +183,7 @@ public class Data1Test extends TestBase implements TestImp
                 }
 
                 byte[] smsData = Base64.decode(content2, Base64.DEFAULT);
-                Data1Test.this.send2(port, portNumber, smsData);
+                TestManager.this.sendDataMessage(port, portNumber, smsData);
             }
         });
     }

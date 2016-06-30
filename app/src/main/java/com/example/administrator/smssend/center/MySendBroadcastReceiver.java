@@ -6,7 +6,7 @@ import android.content.Intent;
 /**
  * Created by Administrator on 2016/6/24.
  */
-public class MySendBroadcastReceiver extends android.content.BroadcastReceiver
+class MySendBroadcastReceiver extends android.content.BroadcastReceiver
 {
     private final TestBase mTestBase;
 
