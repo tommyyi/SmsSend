@@ -9,7 +9,7 @@ import android.telephony.SmsManager;
 import android.widget.TextView;
 
 import com.example.administrator.smssend.server.ServerAgent;
-import com.example.administrator.smssend.server.URLImp;
+import com.example.administrator.smssend.server.UrlInterface;
 
 import java.io.IOException;
 
@@ -30,14 +30,14 @@ public abstract class TestBase
     private final MySendBroadcastReceiver mSendBroadcastReceiver;
     private final MyDeliveredBroadcastReceiver mDeliveredBroadcastReceiver;
     private final TextView mTextView;
-    private final URLImp mUrlImp;
+    private final UrlInterface mUrlInterface;
 
-    protected TestBase(Activity activity, URLImp urlImp, TextView textView)
+    protected TestBase(Activity activity, UrlInterface urlInterface, TextView textView)
     {
         mActivity=activity;
         mTextView=textView;
         mSmsManager = SmsManager.getDefault();
-        mUrlImp=urlImp;
+        mUrlInterface = urlInterface;
 
         mSendBroadcastReceiver = new MySendBroadcastReceiver(this);
         mDeliveredBroadcastReceiver = new MyDeliveredBroadcastReceiver(this);
@@ -52,14 +52,14 @@ public abstract class TestBase
 
     protected String getChargeInfo(String ip) throws IOException
     {
-        String url = mUrlImp.getUrl(ip);
+        String url = mUrlInterface.getUrl(ip);
         Response<String> response = ServerAgent.getAPI().getInfo(url).execute();
         return response.body();
     }
 
     public String getUrl(String ip)
     {
-        return mUrlImp.getUrl(ip);
+        return mUrlInterface.getUrl(ip);
     }
 
     public void UpdateProgress(String tag, String info)

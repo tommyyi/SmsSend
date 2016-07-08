@@ -3,13 +3,13 @@ package com.example.guangzhou_genyuan;
 import android.content.Context;
 import android.telephony.TelephonyManager;
 
-import com.example.administrator.smssend.server.URLImp;
+import com.example.administrator.smssend.server.UrlInterface;
 
 /**
  * Created by Administrator on 2016/6/23.
  */
 
-public class URL implements URLImp
+public class URL implements UrlInterface
 {
     private final String mImei;
     private final String mImsi;

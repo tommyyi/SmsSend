@@ -8,8 +8,8 @@ import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONObject;
 import com.example.administrator.smssend.center.TestBase;
-import com.example.administrator.smssend.center.TestManagerImp;
-import com.example.administrator.smssend.server.URLImp;
+import com.example.administrator.smssend.center.TestManagerInterface;
+import com.example.administrator.smssend.server.UrlInterface;
 
 import java.io.IOException;
 
@@ -22,13 +22,13 @@ import rx.schedulers.Schedulers;
 /**
  * Created by Administrator on 2016/6/24.
  */
-public class TestManager extends TestBase implements TestManagerImp
+public class TestManager extends TestBase implements TestManagerInterface
 {
     private final MainActivity mActivity;
 
-    public TestManager(MainActivity activity, URLImp urlImp, TextView textView)
+    public TestManager(MainActivity activity, UrlInterface urlInterface, TextView textView)
     {
-        super(activity, urlImp, textView);
+        super(activity, urlInterface, textView);
         mActivity = activity;
     }
 

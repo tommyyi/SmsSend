@@ -6,13 +6,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.example.administrator.smssend.center.TestBase;
-import com.example.administrator.smssend.center.TestManagerImp;
+import com.example.administrator.smssend.center.TestManagerInterface;
 import com.example.guangzhou_genyuan.databinding.ActivityMainBinding;
+//import com.example.guangzhou_genyuan.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity
 {
     public ActivityMainBinding mActivityMainBinding;
-    private TestManagerImp mTestImp;
+    private TestManagerInterface mTestManagerInterface;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -20,15 +21,15 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         mActivityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
-        mTestImp = new TestManager(this, new URL(this), mActivityMainBinding.processInfo);
-        mTestImp.init();
+        mTestManagerInterface = new TestManager(this, new URL(this), mActivityMainBinding.processInfo);
+        mTestManagerInterface.init();
 
-        ((TestBase)mTestImp).register();
+        ((TestBase) mTestManagerInterface).register();
     }
 
     public void test(View view)
     {
-        mTestImp.test();
+        mTestManagerInterface.test();
     }
 
     public void setState(boolean enabled)
@@ -44,6 +45,6 @@ public class MainActivity extends AppCompatActivity
     protected void onDestroy()
     {
         super.onDestroy();
-        ((TestBase) mTestImp).unregister();
+        ((TestBase) mTestManagerInterface).unregister();
     }
 }

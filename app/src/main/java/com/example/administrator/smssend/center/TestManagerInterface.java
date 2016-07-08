@@ -3,7 +3,7 @@ package com.example.administrator.smssend.center;
 /**
  * Created by Administrator on 2016/6/24.
  */
-public interface TestManagerImp
+public interface TestManagerInterface
 {
     void init();
 

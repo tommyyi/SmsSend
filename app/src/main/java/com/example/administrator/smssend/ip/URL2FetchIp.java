@@ -1,14 +1,14 @@
 package com.example.administrator.smssend.ip;
 
 import com.example.administrator.smssend.server.ServerAgent;
-import com.example.administrator.smssend.server.URLImp;
+import com.example.administrator.smssend.server.UrlInterface;
 
 import retrofit2.Response;
 
 /**
  * Created by Administrator on 2016/7/4.
  */
-public class URL2FetchIp implements URLImp
+public class URL2FetchIp implements UrlInterface
 {
     public static final String TAG_1 = "您现在的 IP：<code>";
     public static final String TAG_2 = "</code>";
