@@ -1,5 +1,7 @@
 package com.example.guangzhou_genyuan;
 
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -25,6 +27,8 @@ public class MainActivity extends AppCompatActivity
         mTestManagerInterface.init();
 
         ((TestBase) mTestManagerInterface).register();
+//        rotateAnimRun(mActivityMainBinding.ip);
+        verticalRun(mActivityMainBinding.ip);
     }
 
     public void test(View view)
@@ -46,5 +50,41 @@ public class MainActivity extends AppCompatActivity
     {
         super.onDestroy();
         ((TestBase) mTestManagerInterface).unregister();
+    }
+
+    public void rotateAnimRun(final View view)
+    {
+        ObjectAnimator anim = ObjectAnimator//
+                                            .ofFloat(view, "zhy", 1.0F,  0.0F)//
+                                            .setDuration(5000);//
+        anim.start();
+        anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener()
+        {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation)
+            {
+                float cVal = (Float) animation.getAnimatedValue();
+                view.setAlpha(cVal);
+                view.setScaleX(cVal);
+                view.setScaleY(cVal);
+            }
+        });
+    }
+
+    public void verticalRun(final View view)
+    {
+        final int height = 100;
+        ValueAnimator animator = ValueAnimator.ofFloat(0, 1);
+//        animator.setTarget(view);
+        animator.setDuration(5000).start();
+        //		animator.setInterpolator(value)
+        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener()
+        {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation)
+            {
+                view.setRotation((float)animation.getAnimatedValue()*360);
+            }
+        });
     }
 }
