@@ -3,6 +3,7 @@ package com.example.guangzhou_genyuan;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.databinding.DataBindingUtil;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -27,8 +28,12 @@ public class MainActivity extends AppCompatActivity
         mTestManagerInterface.init();
 
         ((TestBase) mTestManagerInterface).register();
-//        rotateAnimRun(mActivityMainBinding.ip);
-        verticalRun(mActivityMainBinding.ip);
+    }
+
+    private void animateBg()
+    {
+        AnimationDrawable animationDrawable=(AnimationDrawable)mActivityMainBinding.send2.getBackground();
+        animationDrawable.start();
     }
 
     public void test(View view)

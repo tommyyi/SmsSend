@@ -224,6 +224,7 @@
 
             <Button
                 android:layout_alignParentLeft="true"
+                android:background="@drawable/buttonbg"
                 android:id="@+id/send2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
