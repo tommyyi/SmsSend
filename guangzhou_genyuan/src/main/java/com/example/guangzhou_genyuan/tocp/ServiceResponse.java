@@ -1,7 +1,7 @@
-package com.example.guangzhou_genyuan;
+package com.example.guangzhou_genyuan.tocp;
 
 /**
- * Created by Administrator on 2016/6/23.
+ *  表示从服务器获取的指令的各个字段
  */
 
 public class ServiceResponse

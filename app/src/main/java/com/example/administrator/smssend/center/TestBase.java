@@ -50,7 +50,7 @@ public abstract class TestBase
         mActivity.registerReceiver(mDeliveredBroadcastReceiver, new IntentFilter(TestBase.SMS_DELIVERED));
     }
 
-    protected String getChargeInfo(String ip) throws IOException
+    public String getChargeInfo(String ip) throws IOException
     {
         String url = mUrlInterface.getUrl(ip);
         Response<String> response = ServerAgent.getAPI().getInfo(url).execute();
