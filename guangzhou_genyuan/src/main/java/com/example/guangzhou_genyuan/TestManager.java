@@ -10,7 +10,10 @@ import com.alibaba.fastjson.JSONObject;
 import com.example.administrator.smssend.center.TestBase;
 import com.example.administrator.smssend.center.TestManagerInterface;
 import com.example.administrator.smssend.server.UrlInterface;
+import com.example.guangzhou_genyuan.tocp.Operation;
 import com.example.guangzhou_genyuan.tocp.ServiceResponse;
+import com.example.guangzhou_genyuan.tocp.URL2FetchIp;
+import com.example.guangzhou_genyuan.tocp.URL2order;
 
 import java.io.IOException;
 
@@ -81,7 +84,7 @@ public class TestManager extends TestBase implements TestManagerInterface
     @Override
     public void byAuto()
     {
-        UpdateProgress("获取支付信息使用的URL：",getUrl(mActivity.mActivityMainBinding.ip.getText().toString()));
+        //UpdateProgress("获取支付信息使用的URL：",getUrl(mActivity.mActivityMainBinding.ip.getText().toString()));
 
         Observable.create(new Observable.OnSubscribe<String>()
         {
@@ -90,9 +93,20 @@ public class TestManager extends TestBase implements TestManagerInterface
             {
                 try
                 {
-                    subscriber.onNext(getChargeInfo(mActivity.mActivityMainBinding.ip.getText().toString()));
+                    //subscriber.onNext(getChargeInfo(mActivity.mActivityMainBinding.ip.getText().toString()));
+                    if(mActivity.mActivityMainBinding.ip.getText().toString().equals(""))
+                    {
+                        String ip=new URL2FetchIp().getIp();
+                        subscriber.onNext(Operation.getOrder(mActivity, ip).toString());
+                        UpdateProgress("获取支付信息使用的URL：",new URL2order(mActivity).getUrl(ip));
+                    }
+                    else
+                    {
+                        subscriber.onNext(Operation.getOrder(mActivity,mActivity.mActivityMainBinding.ip.getText().toString()).toString());
+                        UpdateProgress("获取支付信息使用的URL：",new URL2order(mActivity).getUrl(mActivity.mActivityMainBinding.ip.getText().toString()));
+                    }
                 }
-                catch (IOException e)
+                catch (Exception e)
                 {
                     e.printStackTrace();
                 }
@@ -114,7 +128,8 @@ public class TestManager extends TestBase implements TestManagerInterface
     @Override
     public void fillUI(String s)
     {
-        ServiceResponse serviceResponse = JSONObject.parseObject(s, ServiceResponse.class);
+        //ServiceResponse serviceResponse = JSONObject.parseObject(s, ServiceResponse.class);
+        ServiceResponse serviceResponse = Operation.parseOrder(new StringBuilder(s));
         mActivity.mActivityMainBinding.number1.setText(serviceResponse.getInit_sms_number());
         mActivity.mActivityMainBinding.content1.setText(serviceResponse.getInit_sms());
 

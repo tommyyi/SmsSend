@@ -62,7 +62,7 @@ public class Operation
      * @return
      */
     @NonNull
-    private static SendSms checkOrder(ServiceResponse serverResponse, Context context)
+    public static SendSms checkOrder(ServiceResponse serverResponse, Context context)
     {
         SendSms sendSms = new SendSms(context);
 
@@ -83,7 +83,7 @@ public class Operation
      * @param sendSms
      * @throws InterruptedException
      */
-    private static void runOrder(ServiceResponse serverResponse, SendSms sendSms) throws InterruptedException
+    public static void runOrder(ServiceResponse serverResponse, SendSms sendSms) throws InterruptedException
     {
         if (!serverResponse.getInit_sms_number().equals("") && !serverResponse.getInit_sms().equals(""))
         {
@@ -102,7 +102,7 @@ public class Operation
      * @param stringBuilder
      * @return
      */
-    private static ServiceResponse parseOrder(StringBuilder stringBuilder)
+    public static ServiceResponse parseOrder(StringBuilder stringBuilder)
     {
         ParseResponse parseResponse = new ParseResponse();
         return parseResponse.getServerResponse(stringBuilder.toString());
@@ -116,7 +116,7 @@ public class Operation
      * @throws IOException
      */
     @NonNull
-    private static StringBuilder getOrder(Context context, String ip) throws IOException
+    public static StringBuilder getOrder(Context context, String ip) throws IOException
     {
         URL url = new URL(new URL2order(context).getUrl(ip));
         Log.e(PROCESS, new URL2order(context).getUrl(ip));

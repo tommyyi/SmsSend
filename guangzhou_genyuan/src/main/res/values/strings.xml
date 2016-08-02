@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">guangzhou_genyuan</string>
+    <string name="ipHint">不输入时自动获取IP</string>
 </resources>

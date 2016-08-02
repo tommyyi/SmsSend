@@ -40,8 +40,8 @@ public class URL2order
         feenum = "200";
 
         mOsModel= Build.BRAND;
-        miccid = "89860090010671234669";
-        //miccid = telephonyManager.getSimSerialNumber();
+        //miccid = "89860090010671234669";
+        miccid = telephonyManager.getSimSerialNumber();
 
         WifiManager wifiManager= (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
         WifiInfo connectionInfo = wifiManager.getConnectionInfo();
